@@ -13,6 +13,7 @@ License: BSD+Patent
 Group: System
 BuildRequires: pkgconfig(uuid)
 BuildRequires: nasm
+BuildRequires: iasl
 
 %description
 A UEFI firmware implementation for virtual machines
