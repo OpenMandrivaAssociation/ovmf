@@ -11,6 +11,7 @@ Summary: A UEFI firmware implementation for virtual machines
 URL: https://github.com/tianocore/tianocore.github.io/wiki/OVMF-FAQ
 License: BSD+Patent
 Group: System
+BuildRequires: pkgconfig(uuid)
 
 %description
 A UEFI firmware implementation for virtual machines
