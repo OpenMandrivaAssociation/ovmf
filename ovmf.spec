@@ -2,7 +2,7 @@
 
 Name: ovmf
 Version: 202211
-Release: 1
+Release: 2
 Source0: https://github.com/tianocore/edk2/archive/refs/tags/edk2-stable%{version}.tar.gz
 # OVMF official sources list OpenSSL_1_1_1n, but let's try not to pull in security bugs
 Source1: https://github.com/openssl/openssl/archive/refs/tags/OpenSSL_1_1_1t.tar.gz
