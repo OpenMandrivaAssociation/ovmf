@@ -1,4 +1,6 @@
 sources:
-  brotli.tar.gz: 71d21b75969799696c0362f39daefe2a1d1e3093
-  edk2-stable202211.tar.gz: ad6ae0324526ee9cb94ee29c86720e1481fdff02
-  OpenSSL_1_1_1t.tar.gz: 34ea65451f7fc4625f31ba50f89b3fbea12f13f3
+  brotli.tar.gz: 2b048546afec020cf922f6af75058cc60fcf4fbf
+  edk2-stable202311.tar.gz: 95011646df104e88c4ac4ce4718b8503bdff07e8
+  mbedtls.tar.gz: 9a06b601d3f636369f5c8740e3c0623ed48cecbd
+  mipisyst.tar.gz: 8e5af84d56e2a69c2d722c25f6f32e1caa76603f
+  openssl.tar.gz: 40a7d0d8c69542aae49f21b20512c1281eb9c0f2

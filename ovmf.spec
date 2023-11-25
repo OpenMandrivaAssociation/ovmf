@@ -1,12 +1,17 @@
 %undefine _debugsource_packages
 
 Name: ovmf
-Version: 202211
-Release: 2
+Version: 202311
+Release: 1
 Source0: https://github.com/tianocore/edk2/archive/refs/tags/edk2-stable%{version}.tar.gz
-# OVMF official sources list OpenSSL_1_1_1n, but let's try not to pull in security bugs
-Source1: https://github.com/openssl/openssl/archive/refs/tags/OpenSSL_1_1_1t.tar.gz
-Source2: https://github.com/google/brotli/archive/f4153a09f87cbb9c826d8fc12c74642bb2d879ea.tar.gz#/brotli.tar.gz
+# OVMF official sources list OpenSSL_3_0_9, but let's try not to pull in security bugs
+# Unfortunately OVMF doesn't seem to be ready for anything past the 3.0.x branch
+Source1: https://github.com/openssl/openssl/archive/refs/tags/openssl-3.0.10.tar.gz#/openssl.tar.gz
+# OVMF wants https://github.com/google/brotli/archive/f4153a09f87cbb9c826d8fc12c74642bb2d879ea.tar.gz, but let's try something less buggy
+Source2: https://github.com/google/brotli/archive/refs/tags/v1.1.0.tar.gz#/brotli.tar.gz
+Source3: https://github.com/MIPI-Alliance/public-mipi-sys-t/archive/370b5944c046bab043dd8b133727b2135af7747a.tar.gz#/mipisyst.tar.gz
+# OVMF wants https://github.com/Mbed-TLS/mbedtls/tree/8c89224991adff88d53cd380f42a2baa36f91454, but we can do better
+Source4: https://github.com/Mbed-TLS/mbedtls/archive/refs/tags/v3.5.1.tar.gz#/mbedtls.tar.gz
 Summary: A UEFI firmware implementation for virtual machines
 URL: https://github.com/tianocore/tianocore.github.io/wiki/OVMF-FAQ
 License: BSD+Patent
@@ -22,9 +27,15 @@ A UEFI firmware implementation for virtual machines
 %autosetup -p1 -n edk2-edk2-stable%{version}
 tar xf %{S:1}
 tar xf %{S:2}
-rm -rf CryptoPkg/Library/OpensslLib/openssl MdeModulePkg/Library/BrotliCustomDecompressLib/brotli BaseTools/Source/C/BrotliCompress/brotli
+tar xf %{S:3}
+tar xf %{S:4}
+rm -rf CryptoPkg/Library/OpensslLib/openssl MdeModulePkg/Library/BrotliCustomDecompressLib/brotli BaseTools/Source/C/BrotliCompress/brotli MdePkg/Library/MipiSysTLib/mipisyst CryptoPkg/Library/MbedTlsLib/mbedtls
 mv openssl-* CryptoPkg/Library/OpensslLib/openssl
+# Adapt to some files moving around in OpenSSL 3.2
+#ln -s include/internal/e_os.h CryptoPkg/Library/OpensslLib/openssl/
 mv brotli-* MdeModulePkg/Library/BrotliCustomDecompressLib/brotli
+mv public-mipi-sys-t-* MdePkg/Library/MipiSysTLib/mipisyst
+mv mbedtls-* CryptoPkg/Library/MbedTlsLib/mbedtls
 cp -a MdeModulePkg/Library/BrotliCustomDecompressLib/brotli BaseTools/Source/C/BrotliCompress/brotli
 
 %build
